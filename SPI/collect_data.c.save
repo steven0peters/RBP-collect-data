@@ -1,0 +1,37 @@
+/*
+ *  written by Steven
+*/
+
+#include <wiringPi.h>
+#include <pthread.h>
+
+int main(void)
+{
+	while(1)
+	{
+		/* local variables */
+		pthread_t thread_heartbeat;
+
+
+		wiringPiSetup();
+	
+		/* configure pins */
+		pinMode(0, OUTPUT);
+
+		/* create heartbeat thread */
+		pthread_create(&thread_heartbeat,NULL,&blink,NULL);	
+	}
+
+}
+
+
+void * blink(void)
+{
+	while(1)
+	{
+		digitalWrite(0, HIGH); delay(500);
+		digitalWrite(0, LOW); delay(500);
+	}
+
+	return 0;
+}
